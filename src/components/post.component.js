@@ -2,31 +2,38 @@ import React from 'react';
 import Like from './like.component';
 
 class Post extends React.Component {
-  state = {};
+  state = { liked: null };
 
   handleLike = () => {
-    if (this.state.liked === undefined) {
+    if (this.state.liked === null) {
       this.setState({ liked: true });
       this.props.increaseLike();
     } else if (this.state.liked !== true) {
       this.setState({ liked: true });
       this.props.increaseLike();
       this.props.decreaseDislike();
+    } else {
+      this.setState({ liked: null });
+      this.props.decreaseLike();
     }
   };
 
   handleDislike = () => {
-    if (this.state.liked === undefined) {
+    if (this.state.liked === null) {
       this.setState({ liked: false });
       this.props.increaseDislike();
     } else if (this.state.liked === true) {
       this.setState({ liked: false });
       this.props.increaseDislike();
       this.props.decreaseLike();
+    } else {
+      this.setState({ liked: null });
+      this.props.decreaseDislike();
     }
   };
 
   render() {
+    console.log(this.props.image);
     return (
       <>
         <div className="container w-50 mt-4 ">
@@ -35,10 +42,11 @@ class Post extends React.Component {
               <h4 className="card-title">{this.props.title}</h4>
               <h6 className="card-subtitle mb-3">{this.props.date}</h6>
               <img
-                src="https://imagesvc.meredithcorp.io/v3/mm/image?url=https%3A%2F%2Fimagesvc.meredithcorp.io%2Fv3%2Fmm%2Fimage%3Furl%3Dhttps%253A%252F%252Fstatic.onecms.io%252Fwp-content%252Fuploads%252Fsites%252F13%252F2015%252F04%252F05%252Ffeatured.jpg&q=85"
+                src={this.props.image}
                 width="400"
-                height="400"
-                alt="random"
+                height="300"
+                alt="post-content"
+                style={{ objectFit: 'contain' }}
               />
               <p className="card-text">{this.props.content}</p>
             </div>

@@ -9,9 +9,13 @@ class Like extends React.Component {
   };
 
   getUnLikeClass = () => {
-    let className = this.props.liked
-      ? 'bi bi-hand-thumbs-down'
-      : 'bi bi-hand-thumbs-down-fill';
+    let className;
+    if (this.props.liked === null) className = 'bi bi-hand-thumbs-down';
+    else {
+      className = this.props.liked
+        ? 'bi bi-hand-thumbs-down'
+        : 'bi bi-hand-thumbs-down-fill';
+    }
     return className;
   };
 
